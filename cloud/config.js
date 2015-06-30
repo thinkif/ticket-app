@@ -2,8 +2,8 @@
  * Created by lzw on 14-8-19.
  */
 //我申请的一个应用的appId,appKey，你可以替换成自己的，新建一条工单，便可以看到相应的表
-exports.applicationId='0d8v0gia5jh6on09wcdbnn8960btye0rar5xelsdxpmoe4ht';
-exports.applicationKey='96e0xzrfhi8o133wrpauizjc6zrtqyhe4zq6xxm1yq0qs3u1';
+exports.applicationId='vw82rjz8ows36zvcvsiuxhgdk98m9yv9mzxu7zbakh4hcfz8';
+exports.applicationKey='qttuphql7f5jlb30peac8a3nmzp2h4aqx1rikoppzw32avgz';
 
 //express用做加密token的salt，自己申请应用搭建时，可稍微更改字符串，可以更安全
 exports.cookieParserSalt="klp4e8b4sdOK86";
@@ -15,7 +15,7 @@ exports.mailGunKey='';//please use your mailGunKey
 exports.slackUrl='';
 
 //配置自己申请的子域名
-exports.hostUrl='http://pmw.avosapps.com';
+exports.hostUrl='https://pmwissue.avosapps.com';
 
 //邮件的发送者，平时管理员回复了你的工单的时候，你便会收到来自这个邮箱的email
 exports.emailHost='support@yuanmakeji.com';

@@ -18,7 +18,7 @@
 
 
 <div class="clearfix">
-  <div style="width: 50%;float: left">
+  <div style="width: 100%;float: left">
     <table class="table table-borderless table-sortable" >
       <thead>
       <tr>
@@ -38,7 +38,7 @@
 
   </div>
 
-  <div style="margin-left: 50%">
+<!--  <div style="margin-left: 50%">
     <table class="table table-borderless table-sortable" >
       <thead>
       <tr>
@@ -55,7 +55,24 @@
       <% } ) %>
       </tbody>
     </table>
-  </div>
+  </div>--><!--  <div style="margin-left: 50%">
+    <table class="table table-borderless table-sortable" >
+      <thead>
+      <tr>
+        <th data-sort="string">文档</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% docs.forEach (function (doc){ %>
+      <tr>
+        <td>
+          <a href="<%= doc.url %>"><%= doc.title %></a>
+        </td>
+      </tr>
+      <% } ) %>
+      </tbody>
+    </table>
+  </div>-->
 </div>
 
 <div class="search-page">
