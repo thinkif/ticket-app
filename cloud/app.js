@@ -765,6 +765,11 @@ function genQQLink(isAdmin, ticketCid, visitCid, threads) {
 }
 
 app.get('/tickets/:id/threads', function (req, res) {
+    if (!login.isLogin(req)) {
+        res.render('login.ejs');
+        return;
+    }
+
     var ticketId = req.params.id;
     var token = req.token;
     var cid = req.cid;
@@ -1015,6 +1020,12 @@ function getAdminReplyN() {
 }
 
 app.get('/search', function (req, res) {
+
+    if (!login.isLogin(req)) {
+        res.render('login.ejs');
+        return;
+    }
+
     var content = req.query.content;
     if (content == null || content == '') {
         res.redirect('/search?content=AVObject&page=1');
@@ -1090,6 +1101,10 @@ app.get('/search', function (req, res) {
 });
 
 app.get('/admin/detail/:id', function (req, res) {
+    if (!login.isLogin(req)) {
+        res.render('login.ejs');
+        return;
+    }
     var id = req.params.id;
     admin.findAdminById(id).then(function (_sa) {
         sa = admin.transformAdmin(_sa);
@@ -1134,6 +1149,10 @@ function addTypeName(admin) {
 }
 
 app.get('/contact', function (req, res) {
+    if (!login.isLogin(req)) {
+        res.render('login.ejs');
+        return;
+    }
     var cid = req.cid;
     var client = req.client;
     admin.findAdmins().then(function (admins) {
@@ -1206,6 +1225,10 @@ function judgeDetailVisible(isAdmin, detailCid, visistCid) {
 }
 
 app.get('/clients/:id', function (req, res) {
+    if (!login.isLogin(req)) {
+        res.render('login.ejs');
+        return;
+    }
     var cid = req.cid;
     var id = req.params.id;
     if (judgeDetailVisible(req.admin, id, cid)) {
@@ -1240,6 +1263,10 @@ app.post('/clients/:id', function (req, res) {
 });
 
 app.get('/engineers/:id', function (req, res) {
+    if (!login.isLogin(req)) {
+        res.render('login.ejs');
+        return;
+    }
     var id = req.params.id;
     admin.findCleanAdminById(id).then(function (admin) {
         if (admin) {
@@ -1264,11 +1291,6 @@ app.get('/logout', function (req, res) {
 
 app.get('/', function (req, res) {
     res.redirect('/tickets');
-});
-
-app.get('/google', function (req, res) {
-    var content = req.query.content;
-    res.redirect('https://www.google.com.hk/search?q=site%3Ahttps%3A%2F%2Fticket.avosapps.com+' + content);
 });
 
 app.get('/requestEmailVerify', function (req, res) {
