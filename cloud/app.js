@@ -55,7 +55,7 @@ var slackUrl = config.slackUrl;
 var anonymousCid = login.anonymousCid;
 var Ticket = AV.Object.extend('Ticket');
 var Thread = AV.Object.extend('Thread');
-var adminPrefix = 'AVOS Cloud -- ';
+var adminPrefix = 'CodeTec -- ';
 var type2showMap = {
     'ios': 'iOS SDK',
     'android': 'Android SDK',
@@ -247,7 +247,7 @@ function sendEmail(ticket, subject, text, email) {
             }
         }
         if (__production && to) {
-            mg.sendRaw(_s.sprintf('AVOS Cloud Ticket System <%s>', config.emailHost),
+            mg.sendRaw(_s.sprintf('CodeTec Ticket System <%s>', config.emailHost),
                 [to],
                     'From:' + config.emailHost +
                     '\nTo: ' + to +
@@ -697,11 +697,11 @@ function findMyLastOpen(admin, ticket, threads) {
     while (i >= 0) {
         var th = threads[i];
         if (admin) {
-            if (th.user.indexOf('AVOS Cloud') != -1) {
+            if (th.user.indexOf('CodeTec') != -1) {
                 return th.open;
             }
         } else {
-            if (th.user.indexOf('AVOS Cloud') == -1) {
+            if (th.user.indexOf('CodeTec') == -1) {
                 return th.open;
             }
         }
@@ -784,13 +784,13 @@ app.get('/tickets/:id/threads', function (req, res) {
     }, renderErrorFn(res));
 });
 
-var closeMsg = '关闭了 AVOS Cloud 上的工单，如果还有问题请及时联系。';
+var closeMsg = '关闭了 CodeTec 上的工单，如果还有问题请及时联系。';
 function sendClientEmail(ticket, html) {
     var ticketSeq = getTicketId(ticket);
     var link = 'http://ticket.avosapps.com/tickets/' + ticket.id + '/threads';
-    html = html + '<br/><p>请直接 <a href="' + link + '" target="_blank">点击这里</a> 进入 AVOS Cloud 技术支持系统回复。</p>' +
-        '<p>谢谢，AVOS Cloud Team</p>';
-    sendEmail(ticket, 'AVOS Cloud 技术支持工单' + ticketSeq + ' 更新', html, ticket.get('client_email'));
+    html = html + '<br/><p>请直接 <a href="' + link + '" target="_blank">点击这里</a> 进入 CodeTec 技术支持系统回复。</p>' +
+        '<p>谢谢，CodeTec Team</p>';
+    sendEmail(ticket, 'CodeTec 技术支持工单' + ticketSeq + ' 更新', html, ticket.get('client_email'));
 }
 
 function sendCloseEmail(ticket) {

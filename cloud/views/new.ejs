@@ -50,7 +50,7 @@
 <% }%>
 <form id="ticketForm" enctype="multipart/form-data" action="/tickets?token=<%=token%>" method="post">
   <%if(client.id=='anonymousCid'){%>
-    <p class="callout callout-info">现为匿名用户，若您已在AVOS Cloud注册帐号，建议<a href="/login">登录</a>以便更好地联系您</p>
+    <p class="callout callout-info">现为匿名用户，若您已在这里注册帐号，建议<a href="/login">登录</a>以便更好地联系您</p>
   <%}%>
   <div class="form-group">
     <label class="control-label" for="inputTitle">
