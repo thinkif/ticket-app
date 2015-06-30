@@ -21,7 +21,7 @@ var _s = require('underscore.string');
 
 // App全局配置
 if (__production) {
-    app.set('views', 'cloud/views');    
+    app.set('views', 'cloud/views');
 } else {
     app.set('views', 'cloud/views');
 }
@@ -30,10 +30,10 @@ app.set('view engine', 'ejs');        // 设置template引擎
 app.use(avosExpressHttpsRedirect());
 app.use(express.bodyParser());        // 读取请求body的中间件
 app.use(express.cookieParser(config.cookieParserSalt));
-app.use(avosExpressCookieSession({ 
-    cookie: { 
-        maxAge: 3600000 
-    }, 
+app.use(avosExpressCookieSession({
+    cookie: {
+        maxAge: 3600000
+    },
     fetchUser: true
 }));
 app.use(expressLayouts);
@@ -244,11 +244,11 @@ function sendEmail(ticket, subject, text, email) {
         if (__production && to) {
             mg.sendRaw(_s.sprintf('CodeTec Ticket System <%s>', config.emailHost),
                 [to],
-                    'From:' + config.emailHost +
-                    '\nTo: ' + to +
-                    '\nContent-Type: text/html; charset=utf-8' +
-                    '\nSubject: ' + subject +
-                    '\n\n' + text,
+                'From:' + config.emailHost +
+                '\nTo: ' + to +
+                '\nContent-Type: text/html; charset=utf-8' +
+                '\nSubject: ' + subject +
+                '\n\n' + text,
                 function (err) {
                     if (err) {
                         console.log(err);
@@ -336,9 +336,9 @@ app.get('/history', function (req, res) {
                 next = parseInt(skip) + parseInt(limit);
             }
             res.render('history', {
-                tickets: tickets, 
-                back: back, 
-                next: next, 
+                tickets: tickets,
+                back: back,
+                next: next,
                 type: type
             });
         }, renderErrorFn(res));
@@ -357,7 +357,7 @@ app.get('/notifications', function (req, res) {
     query.descending('createdAt');
     query.find().then(function (results) {
         results = _.map(results, transformNotification);
-        res.send({ 
+        res.send({
             results: results
         });
     }, renderErrorFn(res));
@@ -367,7 +367,7 @@ app.get('/tickets/new', function (req, res) {
     var token = req.token;
     var client = req.client;
     res.render('new', {
-        token: token, 
+        token: token,
         client: client
     });
 });
@@ -435,12 +435,12 @@ app.get('/admin/tickets', function (req, res) {
                 status = "";
             }
             res.render('admin_list', {
-                tickets: tickets, 
-                token: token, 
+                tickets: tickets,
+                token: token,
                 email: email,
-                status: status, 
-                back: back, 
-                next: next 
+                status: status,
+                back: back,
+                next: next
             });
         }, renderErrorFn(res));
     }, renderErrorFn(res));
@@ -476,9 +476,9 @@ app.get('/admin/history', function (req, res) {
                 tickets = _.map(tickets, transformSearchTicket);
                 //renderError(res, tickets);
                 res.render('admin_history', {
-                    tickets: tickets, 
-                    back: back, 
-                    next: next, 
+                    tickets: tickets,
+                    back: back,
+                    next: next,
                     type: type
                 });
                 //console.log(httpResponse.text);
@@ -519,7 +519,7 @@ function getStatisticsEachType(admins, ticketThreads) {
     var type2name = {};
     for (var type in type2showMap) {
         type2name[type] = [];
-        admins.forEach(function(admin) {
+        admins.forEach(function (admin) {
             if (admin.types && admin.types.indexOf(type) >= 0) {
                 type2name[type].push(admin.username);
             }
@@ -605,7 +605,7 @@ function getStatisticsEachType(admins, ticketThreads) {
 
     }
     return {
-        week: week, 
+        week: week,
         allhistory: allhistory
     };
 }
@@ -619,16 +619,16 @@ function getStatisticsEachAdmin(admins, ticketThreads) {
                 if (admin.cid == thread.get('cid')) {
                     find = true;
                     if (isThisWeek(thread.createdAt)) {
-                        admin.weekReplyNum ++;
+                        admin.weekReplyNum++;
                     }
-                    admin.allReplyNum ++;
+                    admin.allReplyNum++;
                 }
             });
             if (find) {
                 if (isThisWeek(tt.ticket.createdAt)) {
-                    admin.weekTicketNum ++;
+                    admin.weekTicketNum++;
                 }
-                admin.allTicketNum ++;
+                admin.allTicketNum++;
             }
         }
     });
@@ -668,7 +668,12 @@ app.get('/admin/statistics', function (req, res) {
             var __ret = getStatisticsEachType(admins, ticketThreads);
             getStatisticsEachAdmin(admins, ticketThreads);
             //mlog.log(admins);
-            res.render('admin_statistics', {token: token, week: __ret.week, allhistory: __ret.allhistory, admins: admins});
+            res.render('admin_statistics', {
+                token: token,
+                week: __ret.week,
+                allhistory: __ret.allhistory,
+                admins: admins
+            });
         }, mutil.renderErrorFn(res));
     }, mutil.renderErrorFn(res));
 });
@@ -700,7 +705,7 @@ function findMyLastOpen(admin, ticket, threads) {
                 return th.open;
             }
         }
-        i --;
+        i--;
     }
     if (admin) {
         return open_content;
@@ -762,13 +767,13 @@ app.get('/tickets/:id/threads', function (req, res) {
                 var lastOpen = findMyLastOpen(isAdmin, ticket, threads);
                 genQQLink(isAdmin, ticket.cid, cid, threads).then(function (qqLink) {
                     mlog.log('qqlink' + qqLink);
-                    res.render('edit', { 
-                        ticket: ticket, 
-                        token: token, 
+                    res.render('edit', {
+                        ticket: ticket,
+                        token: token,
                         threads: threads,
-                        admin: isAdmin, 
-                        cid: cid, 
-                        lastOpen: lastOpen, 
+                        admin: isAdmin,
+                        cid: cid,
+                        lastOpen: lastOpen,
                         qqLink: qqLink
                     });
                 }, mutil.renderErrorFn(res));
@@ -784,8 +789,8 @@ function sendClientEmail(ticket, html) {
     var ticketSeq = getTicketId(ticket);
     var link = 'http://ticket.avosapps.com/tickets/' + ticket.id + '/threads';
     html = html + '<br/><p>请直接 <a href="' + link + '" target="_blank">点击这里</a> 进入 CodeTec 技术支持系统回复。</p>' +
-        '<p>谢谢，CodeTec Team</p>';
-    sendEmail(ticket, 'CodeTec 技术支持工单' + ticketSeq + ' 更新', html, ticket.get('client_email'));
+    '<p>谢谢，CodeTec Team</p>';
+    sendEmail(ticket, '喷绘管理云平台移动网站(微信)用户反馈代号:' + ticketSeq + ' 更新', html, ticket.get('client_email'));
 }
 
 function sendCloseEmail(ticket) {
@@ -814,7 +819,7 @@ app.post('/tickets/:id/threads', function (req, res) {
     ticket.fetch().then(function (ticket) {
         if (isTicketEmpty(ticket) == false) {
             //864 is administrator's client id
-            var isAdmin=req.admin;
+            var isAdmin = req.admin;
             if (ticket.get('cid') != cid && !isAdmin) {
                 renderError(res, '非法的客户端，请不要回复他人的工单');
             } else {
@@ -849,7 +854,7 @@ app.post('/tickets/:id/threads', function (req, res) {
                                 ticket.save();
                             } else {
                                 html = '<p>' + req.client.username +
-                                    '回复到：</p> <p><pre> ' + content + ' </pre></p>';
+                                '回复到：</p> <p><pre> ' + content + ' </pre></p>';
                                 ticket.set('status', processing_status);
                                 ticket.save();
                             }
@@ -873,7 +878,7 @@ app.post('/tickets/:id/threads', function (req, res) {
                             }
                             var text = '<p>Client: client.username </p><p>Title:     <pre>' + ticket.get('title') + '</pre></p><p>Reply:    <pre>' + content + '</pre></p>';
                             text = text + generateAdminReplyLink(ticket);
-                            sendEmail(ticket, 'New reply thread', text);
+                            sendEmail(ticket, '工单新回复', text, 'support@yuanmakeji.com');
                             notifyTicketToChat(ticket, content, '工单新回复！');
                         }
                         thread.set('content', content);
@@ -953,7 +958,7 @@ function createTicket(res, token, client, attachment, title, type, content, secr
         ticket.save().then(function (ticket) {
             var text = '<p>Client:    ' + client.username + '</p><p> Type:    ' + type + '</p><p> Title:    <pre>' + title + '</pre></p><p>Content:    <pre>' + content + '</pre></p>';
             text += generateAdminReplyLink(ticket);
-            sendEmail(ticket, 'New ticket', text);
+            sendEmail(ticket, '新的工单', text, 'support@yuanmakeji.com');
             var info = '新的工单！';
             notifyTicketToChat(ticket, content, info);
             then(ticket);
@@ -1047,8 +1052,10 @@ app.get('/search', function (req, res) {
                             prevPage = 1;
                         }
                         nextPage = page + 1;
-                        res.render('search', {tickets: tickets, content: content, threadsN: threadsN,
-                            searchPage: true, docs: docs, page: page, prevPage: prevPage, nextPage: nextPage});
+                        res.render('search', {
+                            tickets: tickets, content: content, threadsN: threadsN,
+                            searchPage: true, docs: docs, page: page, prevPage: prevPage, nextPage: nextPage
+                        });
                     },
                     error: function (err) {
                         mlog.log(err);
@@ -1184,7 +1191,7 @@ function judgeDetailVisible(isAdmin, detailCid, visistCid) {
 app.get('/clients/:id', function (req, res) {
     var cid = req.cid;
     var id = req.params.id;
-    if (judgeDetailVisible(req.admin,id, cid)) {
+    if (judgeDetailVisible(req.admin, id, cid)) {
         muser.findUserById(id).then(function (client) {
             if (client) {
                 res.render('client_detail', {client: client});
@@ -1197,7 +1204,7 @@ app.get('/clients/:id', function (req, res) {
     }
 });
 
-function isAdminOrMe(isAdmin,contentId, visitId) {
+function isAdminOrMe(isAdmin, contentId, visitId) {
     return isAdmin || contentId == visitId;
 }
 
@@ -1254,11 +1261,11 @@ app.get('/requestEmailVerify', function (req, res) {
     }, mutil.renderErrorFn(res));
 });
 
-app.post('/admin',function(req,res){
-    var username=req.body.username;
-    admin.addOrDelAdmin(username).then(function(){
+app.post('/admin', function (req, res) {
+    var username = req.body.username;
+    admin.addOrDelAdmin(username).then(function () {
         res.redirect('/contact');
-    },mutil.renderErrorFn(res));
+    }, mutil.renderErrorFn(res));
 });
 
 app.get('/test', function (req, res) {
