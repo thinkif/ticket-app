@@ -878,7 +878,7 @@ app.post('/tickets/:id/threads', function (req, res) {
                             }
                             var text = '<p>Client: client.username </p><p>Title:     <pre>' + ticket.get('title') + '</pre></p><p>Reply:    <pre>' + content + '</pre></p>';
                             text = text + generateAdminReplyLink(ticket);
-                            sendEmail(ticket, '工单新回复', text, 'support@yuanmakeji.com');
+                            sendEmail(ticket, 'New Ticket Reply in PMW', text, 'support@yuanmakeji.com');
                             notifyTicketToChat(ticket, content, '工单新回复！');
                         }
                         thread.set('content', content);
@@ -958,7 +958,7 @@ function createTicket(res, token, client, attachment, title, type, content, secr
         ticket.save().then(function (ticket) {
             var text = '<p>Client:    ' + client.username + '</p><p> Type:    ' + type + '</p><p> Title:    <pre>' + title + '</pre></p><p>Content:    <pre>' + content + '</pre></p>';
             text += generateAdminReplyLink(ticket);
-            sendEmail(ticket, '新的工单', text, 'support@yuanmakeji.com');
+            sendEmail(ticket, 'New Ticket in PMW', text, 'support@yuanmakeji.com');
             var info = '新的工单！';
             notifyTicketToChat(ticket, content, info);
             then(ticket);
