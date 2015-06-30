@@ -57,13 +57,8 @@ var Ticket = AV.Object.extend('Ticket');
 var Thread = AV.Object.extend('Thread');
 var adminPrefix = 'CodeTec -- ';
 var type2showMap = {
-    'ios': 'iOS SDK',
-    'android': 'Android SDK',
-    'javascript': 'JavaScript SDK',
-    'push': '消息推送',
-    'cloud': '云代码',
-    'stats': '统计',
-    'dashboard': '开发者平台',
+    'wechat': '微信端',
+    'management': '管理端',
     'other': '其他'
 };
 
