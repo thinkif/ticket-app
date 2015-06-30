@@ -70,9 +70,9 @@
 <script type="text/javascript">
     var url = document.URL;
     if (/.*type=wechat.*/.exec(url)){
-        $('#wechat').attr('class','active');
+        $('#wechat_link').attr('class','active');
     }else if (/.*type=management.*/.exec(url)){
-        $('#management').attr('class','active');
+        $('#management_link').attr('class','active');
     }else if (/.*type=other.*/.exec(url)){
         $('#other_link').attr('class','active');
     }else{
