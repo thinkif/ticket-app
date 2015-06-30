@@ -366,10 +366,15 @@ app.get('/notifications', function (req, res) {
 app.get('/tickets/new', function (req, res) {
     var token = req.token;
     var client = req.client;
-    res.render('new', {
-        token: token,
-        client: client
-    });
+
+    if (login.isLogin(req)) {
+        res.render('new', {
+            token: token,
+            client: client
+        });
+    } else {
+        res.render('login.ejs');
+    }
 });
 
 app.get('/admin/tickets', function (req, res) {
@@ -679,7 +684,7 @@ app.get('/admin/statistics', function (req, res) {
 });
 
 function judgeVisibleForOne(open, isAdmin, cid, ticketCid) {
-    if (open == open_content || isAdmin || ticketCid == anonymousCid || cid == ticketCid) {
+    if (isAdmin || cid == ticketCid) { // 禁止使用匿名用户,所以右侧这句话不用了  || open == open_content || ticketCid == anonymousCid
         return true;
     } else {
         return false;
