@@ -9,7 +9,7 @@ exports.applicationKey='qttuphql7f5jlb30peac8a3nmzp2h4aqx1rikoppzw32avgz';
 exports.cookieParserSalt="klp4e8b4sdOK86";
 
 //mailGun，一个邮箱服务提供商，当有新工单创建或有回复的时候用到
-exports.mailGunKey='';//please use your mailGunKey
+exports.mailGunKey='key-a9c4e43f0d81a1248b196d6a49fcbab5';//please use your mailGunKey
 
 //请设置自己的slackUrl，有工单回复的时候通知此slack聊天工具
 exports.slackUrl='';
@@ -21,4 +21,4 @@ exports.hostUrl='https://pmwissue.avosapps.com';
 exports.emailHost='support@yuanmakeji.com';
 
 //注册后，是否需要通过邮件验证才可以使用工单系统
-exports.needEmailVerify = false;
+exports.needEmailVerify = true;
