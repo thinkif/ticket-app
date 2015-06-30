@@ -1261,8 +1261,8 @@ app.post('/admin',function(req,res){
     },mutil.renderErrorFn(res));
 });
 
-app.get('/test', function (req, res) {
-});
+//app.get('/test', function (req, res) {
+//});
 
 
 //最后，必须有这行代码来使express响应http请求

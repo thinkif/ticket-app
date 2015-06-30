@@ -15,7 +15,7 @@ exports.mailGunKey='';//please use your mailGunKey
 exports.slackUrl='';
 
 //配置自己申请的子域名
-exports.hostUrl='https://issue.avosapps.com';
+exports.hostUrl='https://pmw.avosapps.com';
 
 //邮件的发送者，平时管理员回复了你的工单的时候，你便会收到来自这个邮箱的email
 exports.emailHost='support@yuanmakeji.com';
