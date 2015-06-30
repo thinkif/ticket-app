@@ -284,64 +284,76 @@ function addNotify(link, cid, msg) {
 app.get('/tickets', function (req, res) {
     var token = req.token;
     var cid = req.cid;
-    var isAdmin = req.admin;
-    if (isAdmin) {
-        //enter admin page.
-        res.redirect('/admin/tickets');
-    } else {
-        var query = new AV.Query('Ticket');
-        query.ascending('status');
-        query.descending('createdAt');
-        query.equalTo('cid', cid);
-        query.find().then(function (tickets) {
-            tickets = tickets || [];
-            tickets = _.map(tickets, transformTicket);
-            res.render('list', {
-                tickets: tickets,
-                token: token
-            });
-        }, mutil.renderErrorFn(res));
+
+    // 必须登录
+    if (!login.isLogin(req)) {
+        res.render('login.ejs');
+    }
+    else {
+        var isAdmin = req.admin;
+        if (isAdmin) {
+            //enter admin page.
+            res.redirect('/admin/tickets');
+        } else {
+            var query = new AV.Query('Ticket');
+            query.ascending('status');
+            query.descending('createdAt');
+            query.equalTo('cid', cid);
+            query.find().then(function (tickets) {
+                tickets = tickets || [];
+                tickets = _.map(tickets, transformTicket);
+                res.render('list', {
+                    tickets: tickets,
+                    token: token
+                });
+            }, mutil.renderErrorFn(res));
+        }
     }
 });
 
 app.get('/history', function (req, res) {
     var cid = req.cid;
     var isAdmin = req.admin;
-    if (isAdmin) {
-        res.redirect('/admin/history');
+    // 必须登录
+    if (!login.isLogin(req)) {
+        res.render('login.ejs');
     } else {
-        var skip = req.query.skip;
-        if (skip == null) {
-            skip = 0;
-        }
-        var limit = 100;
-        var type = req.query.type;
-        var query = new AV.Query("Ticket");
-        query.equalTo('status', done_status);
-        if (type != null) {
-            query.equalTo('type', type);
-        }
-        query.limit(limit);
-        query.skip(skip);
-        query.descending('createdAt');
-        query.find().then(function (tickets) {
-            tickets = tickets || [];
-            tickets = _.map(tickets, transformTicket);
-            var back = -1;
-            var next = -1;
-            if (parseInt(skip) > 0) {
-                back = parseInt(skip) - parseInt(limit);
+        if (isAdmin) {
+            res.redirect('/admin/history');
+        } else {
+            var skip = req.query.skip;
+            if (skip == null) {
+                skip = 0;
             }
-            if (tickets.length == limit) {
-                next = parseInt(skip) + parseInt(limit);
+            var limit = 100;
+            var type = req.query.type;
+            var query = new AV.Query("Ticket");
+            query.equalTo('status', done_status);
+            if (type != null) {
+                query.equalTo('type', type);
             }
-            res.render('history', {
-                tickets: tickets,
-                back: back,
-                next: next,
-                type: type
-            });
-        }, renderErrorFn(res));
+            query.limit(limit);
+            query.skip(skip);
+            query.descending('createdAt');
+            query.find().then(function (tickets) {
+                tickets = tickets || [];
+                tickets = _.map(tickets, transformTicket);
+                var back = -1;
+                var next = -1;
+                if (parseInt(skip) > 0) {
+                    back = parseInt(skip) - parseInt(limit);
+                }
+                if (tickets.length == limit) {
+                    next = parseInt(skip) + parseInt(limit);
+                }
+                res.render('history', {
+                    tickets: tickets,
+                    back: back,
+                    next: next,
+                    type: type
+                });
+            }, renderErrorFn(res));
+        }
     }
 });
 
