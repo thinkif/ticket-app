@@ -18,7 +18,7 @@ exports.slackUrl='';
 exports.hostUrl='https://pmwissue.avosapps.com';
 
 //邮件的发送者，平时管理员回复了你的工单的时候，你便会收到来自这个邮箱的email
-exports.emailHost='postmaster@sandboxda609ad09b79496d8b6a30848d4f9f56.mailgun.org';
+exports.emailHost='support@yuanmakeji.com';//'postmaster@sandboxda609ad09b79496d8b6a30848d4f9f56.mailgun.org';
 
 //注册后，是否需要通过邮件验证才可以使用工单系统
 exports.needEmailVerify = true;
