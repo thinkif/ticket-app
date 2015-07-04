@@ -809,7 +809,7 @@ app.get('/tickets/:id/threads', function (req, res) {
 var closeMsg = '关闭了 CodeTec 上的工单，如果还有问题请及时联系。';
 function sendClientEmail(ticket, html) {
     var ticketSeq = getTicketId(ticket);
-    var link = 'http://ticket.avosapps.com/tickets/' + ticket.id + '/threads';
+    var link = 'http://pmwissue.avosapps.com/tickets/' + ticket.id + '/threads';
     html = html + '<br/><p>请直接 <a href="' + link + '" target="_blank">点击这里</a> 进入 CodeTec 技术支持系统回复。</p>' +
     '<p>谢谢，CodeTec Team</p>';
     sendEmail(ticket, '喷绘管理云平台移动网站(微信)用户反馈代号:' + ticketSeq + ' 更新', html, ticket.get('client_email'));
@@ -884,7 +884,7 @@ app.post('/tickets/:id/threads', function (req, res) {
                                 notifyTicketToChat(ticket, '', '管理员关闭了工单。');
                             }
                             sendClientEmail(ticket, html, ticketSeq);
-                            addNotify('http://ticket.avosapps.com/tickets/' + ticket.id + '/threads', cid);
+                            addNotify('http://pmwissue.avosapps.com/tickets/' + ticket.id + '/threads', cid);
                         } else {
                             if (close == '1') {
                                 if (content == null || content == '') {
